@@ -1,6 +1,6 @@
 # Recovery notes
 
-Last updated during initial build session.
+Last updated at the end of the initial build session — project complete and pushed.
 
 ## State
 - Repo scaffolded at D:\Hackathons2026\greenledger-carbon-agent, git initialized, branch `main`, identity set to orbitwebsites-cloud.
@@ -14,13 +14,15 @@ Last updated during initial build session.
 - Playwright chromium browser installed.
 - EasyOCR installed; model weights downloaded on first OCR call (confirmed working on a single fixture).
 
-## In progress / next steps
-1. Full-pipeline OCR run against all 26 fixtures was running in the background (`greenledger fixtures/bills` via CLI) to confirm parser regexes hold up across all months/utilities — check output, fix any parse failures.
-2. Run `python -m pytest tests/ -v` once more after any parser fixes.
-3. Run `python scripts/generate_demo_video.py` to actually produce DEMO_VIDEO.mp4 (this starts a local uvicorn server on port 8765 and drives it with headless Playwright — no live screen recording).
-4. Watch the generated video once (or check ffprobe duration) to sanity check.
-5. `gh repo create orbitwebsites-cloud/greenledger-carbon-agent --public --source=. --remote=origin` (ask user to confirm repo name/visibility if not already confirmed), then commit + push everything except gitignored files.
-6. Do NOT submit on Devpost — leave that to the user.
+## Status: DONE
+1. Full-pipeline OCR verified against all 24 real fixtures (`greenledger fixtures/bills`) — 24/24 parsed, 0 errors.
+2. `python -m pytest tests/ -v` — 17/17 passing.
+3. `DEMO_VIDEO.mp4` generated via `scripts/generate_demo_video.py` (uses `fixtures/bills_demo/`, a 10-file subset, for speed — see DEMO.md). Verified by extracting frames: title, CLI output, dashboard home, and dashboard report (with the real July electricity spike chart) all render correctly.
+4. Pushed to `https://github.com/orbitwebsites-cloud/greenledger-carbon-agent` (public), branch `main`.
+5. Did NOT submit on Devpost — that's left to the user. `SUBMISSION.md` has a paste-ready draft.
+
+## If resuming
+Nothing outstanding from the initial build. Possible next steps if asked: multi-household comparison, PDF export, eGRID subregional factors (see SUBMISSION.md "what's next"), or attaching DEMO_VIDEO.mp4 to a GitHub release (it's gitignored, not in the repo).
 
 ## Known environment quirks (don't re-diagnose these)
 - Tesseract Windows installer cannot run non-interactively (UAC). Switched OCR engine to EasyOCR (pip-only). Documented in README "Why EasyOCR instead of Tesseract".
