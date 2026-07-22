@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+
+# EasyOCR model cache (downloaded on first run, not part of the repo)
+.EasyOCR/
+
+# Large / generated media — not committed, referenced in README instead
+DEMO_VIDEO.mp4
+assets/video_frames/
+assets/audio/
+*.wav
+*.mp3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "greenledger"
+version = "0.1.0"
+description = "Offline household carbon-footprint agent driven by OCR'd utility bills."
+requires-python = ">=3.10"
+dependencies = [
+    "easyocr==1.7.2",
+    "PyMuPDF==1.24.14",
+    "Pillow==11.0.0",
+]
+
+[project.scripts]
+greenledger = "greenledger.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"greenledger.data" = ["*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <a href="/">&larr; Analyze a different folder</a>
+  <p class="errors">Source: {{ folder }} &middot; {{ result.bills|length }} bill(s) parsed
+    {%- if result.errors %} &middot; {{ result.errors|length }} skipped{% endif %}</p>
+  <div class="total-label">Total footprint across all parsed bills</div>
+  <div class="total-figure">{{ "%.1f"|format(result.total_kg_co2e) }} kg CO2e</div>
+</div>
+
+{% if result.recommendations %}
+<div class="card">
+  <h3>Recommendations</h3>
+  {% for rec in result.recommendations %}
+  <div class="rec">
+    <h4>{{ loop.index }}. {{ rec.title }}</h4>
+    <p>{{ rec.detail }}</p>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% for utility_type, label in utility_labels.items() %}
+  {% if charts.get(utility_type) %}
+  <div class="card utility-card">
+    <h3>{{ label }} usage trend
+      {% set latest = (result.trend_points|selectattr("utility_type", "equalto", utility_type)|list)[-1] %}
+      {% if latest.pct_vs_rolling_avg is not none and latest.pct_vs_rolling_avg >= 15 %}
+        <span class="badge">{{ "%+.0f"|format(latest.pct_vs_rolling_avg) }}% vs avg</span>
+      {% endif %}
+    </h3>
+    {{ charts[utility_type]|safe }}
+  </div>
+  {% endif %}
+{% endfor %}
+
+{% if result.errors %}
+<div class="card">
+  <h3>Skipped files</h3>
+  <ul class="errors">
+    {% for err in result.errors %}<li>{{ err }}</li>{% endfor %}
+  </ul>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{
+  "_meta": {
+    "description": "Static, offline emission-factor table used by GreenLedger. No paid or gated API is used to compute footprints.",
+    "currency": "kg CO2e per unit",
+    "sources": [
+      {
+        "factor": "electricity_kg_co2e_per_kwh",
+        "value": 0.386,
+        "source": "US EPA eGRID2022 (published Jan 2024), U.S. national average CO2-equivalent output emission rate",
+        "url": "https://www.epa.gov/egrid/summary-data"
+      },
+      {
+        "factor": "natural_gas_kg_co2e_per_therm",
+        "value": 5.31,
+        "source": "US EPA GHG Emission Factors Hub (2024), Stationary Combustion - Natural Gas (converted from 53.06 kg CO2e/MMBtu, 1 therm = 0.1 MMBtu, includes CH4/N2O)",
+        "url": "https://www.epa.gov/climateleadership/ghg-emission-factors-hub"
+      },
+      {
+        "factor": "water_kg_co2e_per_gallon",
+        "value": 0.0022,
+        "source": "US DOE/EPA Water-Energy Nexus estimate (~1,700 kWh embedded energy per million gallons for supply, treatment & distribution) converted using the electricity factor above",
+        "url": "https://www.energy.gov/eere/water-energy-nexus"
+      }
+    ]
+  },
+  "electricity": {
+    "unit": "kWh",
+    "kg_co2e_per_unit": 0.386
+  },
+  "natural_gas": {
+    "unit": "therm",
+    "kg_co2e_per_unit": 5.31
+  },
+  "water": {
+    "unit": "gallon",
+    "kg_co2e_per_unit": 0.0022
+  }
+}

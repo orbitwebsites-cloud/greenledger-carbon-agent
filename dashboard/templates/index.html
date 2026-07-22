@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>Analyze a folder of bills</h2>
+  <p>Point GreenLedger at a local folder of utility bill PDFs/images (electricity, gas, water). Everything runs on-device — OCR, footprint calculation, and recommendations.</p>
+  <form class="form-row" action="/report" method="post">
+    <input type="text" name="bills_folder" value="{{ default_folder }}" />
+    <button type="submit">Analyze</button>
+  </form>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+</div>
+{% endblock %}
